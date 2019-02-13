@@ -58,8 +58,8 @@ class Login(Tk):
                 self.destroy()
                 main = MainWindow(self.options['username'].get(), self.options['pwd'].get())
                 main.mainloop()
-            else:
-                print(user.split(':')[0])
+            #else:
+            #    print(user.split(':')[0])
 
         messagebox.showwarning('ERROR', 'Invalid username or password!')
 
