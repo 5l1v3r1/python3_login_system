@@ -3,6 +3,7 @@ import os, sys, time, hashlib
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
+from ttkthemes import ThemedStyle
 
 class Login(Tk):
     def __init__(self):
@@ -11,6 +12,8 @@ class Login(Tk):
         self.resizable(0,0)
         #self.style = Style()
         #self.style.theme_use("clam")
+        self.ttkStyle = ThemedStyle()
+        self.ttkStyle.set_theme("arc")
         self.configure(background = 'white')
         icon = PhotoImage(file='icon.png')
         self.tk.call('wm', 'iconphoto', self._w, icon)
@@ -146,6 +149,8 @@ class MainWindow(Tk):
         self.resizable(0,0)
         #self.style = Style()
         #self.style.theme_use("clam")
+        self.ttkStyle = ThemedStyle()
+        self.ttkStyle.set_theme("arc")
         self.configure(background = 'white')
         icon = PhotoImage(file='icon.png')
         self.tk.call('wm', 'iconphoto', self._w, icon)
