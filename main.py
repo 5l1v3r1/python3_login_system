@@ -100,7 +100,7 @@ class Login(Tk):
         register_button = Button(self.reg, text = 'Register', command = self.register_user, width = 30)
         register_button.grid(row = 7, column = 0, columnspan = 2)
         self.reg.bind('<Return>', self.register_user_event)
-        close_register = Button(self.reg, text = 'Cancel', command = self.destroy, width = 30).grid(row = 8, column = 0, columnspan = 2)
+        close_register = Button(self.reg, text = 'Cancel', command = self.reg.destroy, width = 30).grid(row = 8, column = 0, columnspan = 2)
 
 
     def register_user_event(self, event):
