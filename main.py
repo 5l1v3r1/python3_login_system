@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, time, hashlib
+import os, sys, time, hashlib, platform
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
@@ -17,7 +17,10 @@ class Login(Tk):
         self.configure(background = 'white')
         icon = PhotoImage(file='icon.png')
         self.tk.call('wm', 'iconphoto', self._w, icon)
-        self.eval('tk::PlaceWindow %s center' % self.winfo_pathname(self.winfo_id()))
+        if platform.system() == 'Linux':
+            self.eval('tk::PlaceWindow %s center' % self.winfo_pathname(self.winfo_id()))
+        else:
+            pass
 
         self.bind("<Escape>", self.exit) # Press ESC to quit app
 
