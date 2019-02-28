@@ -39,17 +39,17 @@ class Login(Tk):
         label.image = photo # keep a reference!
         label.grid(row = 0, column = 0, columnspan = 2)
 
-        Label(self, text = 'Username', background = 'white', foreground = 'black', font='Helvetica 12 bold').grid(row = 1, column = 0)
-        self.a = Entry(self, textvariable = self.options['username'], width = 30)
-        self.a.grid(row = 2, column = 0, columnspan = 2)
+        Label(self, text = 'Username', background = 'white', foreground = 'black', font='Helvetica 12 bold').grid(row = 1, column = 0, sticky = 'w')
+        self.a = Entry(self, textvariable = self.options['username'], width = 31)
+        self.a.grid(row = 2, column = 0, columnspan = 2, sticky = 'w')
         self.a.focus()
 
-        Label(self, text = 'Password', background = 'white', foreground = 'black', font='Helvetica 12 bold').grid(row = 3, column = 0)
-        Entry(self, textvariable = self.options['pwd'], show = '*', width = 30).grid(row = 4, column = 0, columnspan = 2)
+        Label(self, text = 'Password', background = 'white', foreground = 'black', font='Helvetica 12 bold').grid(row = 3, column = 0, sticky = 'w')
+        Entry(self, textvariable = self.options['pwd'], show = '*', width = 31).grid(row = 4, column = 0, columnspan = 2, sticky = 'w')
 
-        login_clk = Button(self, text = 'Login', command = self.login, width = 30).grid(row = 5, column = 0, columnspan = 2)
-        register_clk = Button(self, text = 'Register', command = self.register, width = 30).grid(row = 6, column = 0, columnspan = 2)
-        close = Button(self, text = 'Exit', command = self.destroy, width = 30).grid(row = 7, column = 0, columnspan = 2)
+        login_clk = Button(self, text = 'Login', command = self.login, width = 30).grid(row = 5, column = 0, columnspan = 2, sticky = 'w')
+        register_clk = Button(self, text = 'Register', command = self.register, width = 30).grid(row = 6, column = 0, columnspan = 2, sticky = 'w')
+        close = Button(self, text = 'Exit', command = self.destroy, width = 30).grid(row = 7, column = 0, columnspan = 2, sticky = 'w')
         self.bind("<Return>", self.login_event) # Press ESC to quit app
 
     def login_event(self, event):
