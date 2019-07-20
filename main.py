@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+# Logon v2 scvript
 import os, sys, time, hashlib, platform
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
 from ttkthemes import ThemedStyle
+from PIL import ImageTk, Image
 
 class Login(Tk):
     def __init__(self):
@@ -15,9 +17,13 @@ class Login(Tk):
         self.ttkStyle = ThemedStyle()
         self.ttkStyle.set_theme("arc")
         self.configure(background = 'white')
-        icon = PhotoImage(file='icon.png')
+        if platform.system() == 'Darwin':
+            icon = ImageTk.PhotoImage(Image.open('icon.png'))
+        else:
+            icon = PhotoImage(file='icon.png')
+        #icon = PhotoImage(file='icon.png') # This only works on Linux and Windows
         self.tk.call('wm', 'iconphoto', self._w, icon)
-        if platform.system() == 'Linux':
+        if platform.system() == 'Linux' or platform.system() == 'Darwin':
             self.eval('tk::PlaceWindow %s center' % self.winfo_pathname(self.winfo_id()))
         else:
             pass
@@ -32,9 +38,14 @@ class Login(Tk):
             'reg_check_password' : StringVar(),
         }
 
-        photo = PhotoImage(file='images/login_img.png')
+        if platform.system() == 'Darwin':
+            photo = ImageTk.PhotoImage(Image.open('images/login_img.png'))
+        else:
+            photo = PhotoImage(file='images/login_img.png')
+
+        #photo = PhotoImage(file='images/login_img.png') # This only works on Linux and Windows
         #photo = photo.zoom(2)
-        photo = photo.subsample(1)
+        #photo = photo.subsample(1)
         label = Label(self, image=photo, background = 'white')
         label.image = photo # keep a reference!
         label.grid(row = 0, column = 0, columnspan = 2)
@@ -78,9 +89,13 @@ class Login(Tk):
         self.reg.configure(background = 'white')
         self.reg.resizable(0,0)
 
-        reg_photo = PhotoImage(file='images/register.png')
+        if platform.system() == 'Darwin':
+            reg_photo = ImageTk.PhotoImage(Image.open('images/register.png'))
+        else:
+            reg_photo = PhotoImage(file='images/register.png')
+        #reg_photo = PhotoImage(file='images/register.png')
         #photo = photo.zoom(2)
-        reg_photo = reg_photo.subsample(2)
+        #reg_photo = reg_photo.subsample(2)
         label = Label(self.reg, image=reg_photo, background = 'white')
         label.image = reg_photo # keep a reference!
         label.grid(row = 0, column = 0, columnspan = 2)
@@ -155,9 +170,17 @@ class MainWindow(Tk):
         self.ttkStyle = ThemedStyle()
         self.ttkStyle.set_theme("arc")
         self.configure(background = 'white')
-        icon = PhotoImage(file='icon.png')
+        if platform.system() == 'Darwin':
+            icon = ImageTk.PhotoImage(Image.open('icon.png'))
+        else:
+            icon = PhotoImage(file='icon.png')
+        #icon = PhotoImage(file='icon.png')
         self.tk.call('wm', 'iconphoto', self._w, icon)
-        self.eval('tk::PlaceWindow %s center' % self.winfo_pathname(self.winfo_id()))
+        self.protocol("WM_DELETE_WINDOW", self.on_close_event)
+        if platform.system() == 'Linux' or platform.system() == 'Darwin':
+            self.eval('tk::PlaceWindow %s center' % self.winfo_pathname(self.winfo_id()))
+        else:
+            pass
 
         self.bind("<Escape>", self.exit) # Press ESC to quit app
 
@@ -167,14 +190,27 @@ class MainWindow(Tk):
             'pwd' : StringVar(),
         }
 
-        photo = PhotoImage(file='images/login_img.png')
+        if platform.system() == 'Darwin':
+            photo = ImageTk.PhotoImage(Image.open('images/login_img.png'))
+        else:
+            photo = PhotoImage(file='images/login_img.png')
+        #photo = PhotoImage(file='images/login_img.png')
         #photo = photo.zoom(2)
-        photo = photo.subsample(1)
+        #photo = photo.subsample(1)
         label = Label(self, image=photo, background = 'white')
         label.image = photo # keep a reference!
         label.grid(row = 0, column = 0, columnspan = 2)
 
     def exit(self, event):
+        self.on_close_event()
+
+    def on_close_event(self):
+        result = messagebox.askyesno("Are you sure?","Are you sure you want to exit?")
+        if result == False:
+            return
+        else:
+            pass
+
         sys.exit(0)
 
 logon = Login()
